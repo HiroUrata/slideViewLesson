@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         
         
         createLeftSlideView()
-        
+        createRightSlideView()
         
     }
 
@@ -53,14 +53,14 @@ class ViewController: UIViewController {
     }
     
 
-    func slideViewShowHidden(){
+    func leftSlideViewShowHidden(){
         
         if leftSlideView.frame.origin.x == self.view.frame.minX - self.view.frame.midX{
             
             UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {self.leftSlideView.frame.origin.x = 0}, completion: nil)
             createButton(xPoint: self.leftSlideView.frame.origin.x)
             
-        }else if leftSlideView.frame.origin.x == 0{
+        }else if leftSlideView.frame.origin.x == self.view.frame.minX{
             
             UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {self.leftSlideView.frame.origin.x = self.view.frame.minX - self.view.frame.midX}, completion: nil)
 
@@ -72,12 +72,27 @@ class ViewController: UIViewController {
         
         let button = UIButton(frame: CGRect(x: xPoint + 5, y: leftSlideView.frame.minY - 70, width: leftSlideView.frame.size.width - 10, height: leftSlideView.frame.size.height / 12))
         
-        button.setTitle("Button", for: .normal)
+        button.setTitle("rightSlideView", for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)
         button.backgroundColor = UIColor.white
         button.layer.cornerRadius = 20.0
+        button.addTarget(self, action: #selector(rightSlideViewShowHidden), for: .touchDown)
         
         leftSlideView.addSubview(button)
+        
+    }
+    
+    @objc func rightSlideViewShowHidden(sender:UIButton){
+        
+        if rightSlideView.frame.origin.x == self.view.frame.maxX{
+            
+            UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {self.rightSlideView.frame.origin.x = self.view.frame.maxX - self.view.frame.midX}, completion: nil)
+            
+        }else if rightSlideView.frame.origin.x == self.view.frame.maxX - self.view.frame.midX{
+            
+            UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {self.rightSlideView.frame.origin.x = self.view.frame.maxX}, completion: nil)
+            
+        }
         
     }
    
@@ -85,7 +100,7 @@ class ViewController: UIViewController {
     @IBAction func slide(_ sender: UIButton) {
         
         
-        slideViewShowHidden()
+        leftSlideViewShowHidden()
         
     }
     
