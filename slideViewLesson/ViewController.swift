@@ -37,12 +37,25 @@ class ViewController: UIViewController {
         self.view.addSubview(slideView)
     }
 
+    func slideViewShowHidden(){
+        
+        if slideView.frame.origin.x == self.view.frame.minX - self.view.frame.midX{
+            
+            UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {self.slideView.frame.origin.x = 0}, completion: nil)
+            
+        }else if slideView.frame.origin.x == 0{
+            
+            UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {self.slideView.frame.origin.x = self.view.frame.minX - self.view.frame.midX}, completion: nil)
+
+        }
+        
+    }
     
     
     
     @IBAction func slide(_ sender: UIButton) {
         
-        
+        slideViewShowHidden()
         
     }
     
